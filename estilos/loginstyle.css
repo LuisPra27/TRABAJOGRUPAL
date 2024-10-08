@@ -1,0 +1,67 @@
+body{
+    font-family:'Calibri';
+    background-image: url("../images/burbujas.jpg");
+    margin: 20px;
+    background-color: rgb(255, 255, 255);
+    padding: 70px 0;
+    background-size: cover; 
+}
+
+.container{
+    max-width: 400px;
+    margin: auto;
+    padding: 20px;
+    border: 5px solid #000000;
+    border-radius: 8px;
+    background-color:rgba(48, 198, 214, 0.749);
+    font-size: 30px;
+}
+
+input[type="text"], input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    font-size: 18px;
+    margin-bottom: 15px;
+    box-sizing: border-box;
+}
+
+.mini-container{
+    margin-bottom: 5px;
+    
+}
+.mini-container label{
+    display: block;
+    margin-bottom: 1px;
+}
+
+button{
+    background-color: rgb(255, 255, 255);
+    color: rgb(0, 0, 0);
+    border: 2px solid #000000;
+    cursor: pointer;
+    padding: 25px 150px;
+    font-size: 25px;
+    display: block;
+    margin: 0 auto;
+}
+button:hover {
+    background-color: rgb(21, 99, 178);
+    color: white;
+}
+
+.registro {
+    font-size: 90%;
+    text-align: center;    
+    margin-top: 15px;
+}
+
+.registro a {
+    display: block;
+    text-decoration: none;
+    color: #000000;
+    margin-bottom: 3px;
+}
+
+.registro a:hover {
+    color: #0099ff;
+}
