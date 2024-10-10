@@ -1,31 +1,37 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LOG-in</title>
+    <title>Iniciar Sesión</title>
     <link rel="stylesheet" href="../estilos/loginstyle.css">
 </head>
 <body>
-    <div class="container">
-        <div class="mini-container">
-            <label for="usuario"><b>Nombre de usuario</b></label>
-            <input type="text" placeholder="Tu nombre de usuario" name="user" required>
-        </div>
-        <div class="mini-container">
-            <label for="contrasenia"><b>Contraseña</b></label>
-            <input type="password" placeholder="Tu contraseña" name="pass" required>
-        </div>
-        
-        <button onclick="location.href='index.html'" type="submit">Ingresar</button>
-        <label>
-          <input type="checkbox" checked="checked" name="remember"> Recuerdame
-        </label>
-        <div class="registro">
-          <a href="#">¿Perdiste tu contraseña?</a>
-          <a href="#">¿No tienes una cuenta? Registrate</a>
-        </div>
+    <div class="container" id="loginContainer">
+        <form id="loginForm">
+            <h2>Iniciar Sesión</h2>
+            <div class="mini-container">
+                <label for="loginUsername">Nombre de usuario</label>
+                <input type="text" id="loginUsername" name="username" required>
+            </div>
+
+            <div class="mini-container">
+                <label for="loginPassword">Contraseña</label>
+                <input type="password" id="loginPassword" name="password" required>
+            </div>
+
+            <button type="submit">Ingresar</button>
+
+            <div class="remember-me">
+                <input type="checkbox" id="rememberMe" name="rememberMe">
+                <label for="rememberMe">Recuérdame</label>
+            </div>
+
+            <div class="registro">
+                <a href="register.html">¿No tienes una cuenta? Regístrate</a>
+            </div>
+        </form>
     </div>
-    
+    <script src="../SCRIPTS/auth.js"></script>
 </body>
 </html>

@@ -34,13 +34,13 @@ document.addEventListener('DOMContentLoaded', function() {
             <span>Click para más detalles</span>
         `;
         /**
-            const DeleteBtn = document.createElement('button');
-            DeleteBtn.textContent = 'Eliminar';
-            DeleteBtn.onclick = () => eliminarProyecto(index);
+            const project = document.createElement('button');
+            project.textContent = 'Eliminar';
+            project.onclick = () => eliminarProyecto(index);
             const EditarBtn = document.createElement('button');
             EditarBtn.textContent = 'Editar';
             EditarBtn.onclick = () => editarProyecto(index);
-            li.appendChild(DeleteBtn);
+            li.appendChild(project);
             li.appendChild(EditarBtn);
         });
     };

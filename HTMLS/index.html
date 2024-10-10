@@ -7,8 +7,13 @@
     <link rel="stylesheet" href="../estilos/indexstyle.css">
 </head>
 <body>
-    <button id="addProjectdBtn">Añadir Proyecto</button>
-    <button onclick="location.href='login.html'" id="ReturnLoginBtn">Cerrar Sesión</button>
+    <nav class="navbar">
+        <div class="navbar-brand">Mis Proyectos</div>
+        <div class="navbar-menu">
+            <button id="addProjectdBtn" class="navbar-item">Añadir Proyecto</button>
+            <button onclick="location.href='login.html'" id="ReturnLoginBtn" class="navbar-item">Cerrar Sesión</button>
+        </div>
+    </nav>
     <div id="grid-container" class="grid-container">
         <!-- Los proyectos se generarán aquí -->
     </div>
