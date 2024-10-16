@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     const li = document.createElement('li');
                     li.innerHTML = `
                         <label>
-                            <input type="checkbox" class="option"> ${objective.text}
+                            <input type="checkbox" class="option"> ${objective}
                         </label>
                     `;
                     objectivesList.appendChild(li);

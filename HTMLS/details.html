@@ -7,6 +7,13 @@
     <link rel="stylesheet" href="../estilos/detailsstyle.css">
 </head>
 <body>
+    <nav class="navbar">
+        <div class="navbar-brand">Mis Proyectos</div>
+        <div class="navbar-menu">
+            <button onclick="location.href='login.html'" id="ReturnLoginBtn" class="navbar-item">Cerrar Sesión</button>
+        </div>
+    </nav>
+
     <div class="progress-bar">
         <div class="progress" id="progressBar">0%</div>
         <br>
@@ -14,12 +21,12 @@
     <div id="project-details">
         <!-- Los detalles de los proyectos se cargarán aquí -->
     </div>
+        <br>
         <h2>Objetivos:</h2>
         <ul id="objectives-list">
             <!-- Aquí se cargarán los objetivos del proyecto -->
         </ul>
-    </div>
-    <a href="index.html">Volver a la página principal</a>
+    <button onclick="location.href='index.html'" class="return-index">Volver a la pagina Principal</button>
     <script src="../SCRIPTS/details.js"></script>
 </body>
 </html>

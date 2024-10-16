@@ -1,10 +1,15 @@
+*{
+    margin: 0;
+    padding: 0;
+}
 body {
-    font-family: Arial, sans-serif;
+    font-family:'Calibri';
     background-color:rgba(183, 217, 221, 0.444);
 }
 
 #project-details{
     font-size: 30px;
+    padding: 10px;
 }
 
 
@@ -12,6 +17,8 @@ body {
 .progress-bar {
     width: 100%;
     background-color: #e0e0e0;
+    height: 30px;
+    border: 2px solid #000000;
 }
 
 .progress {
@@ -22,4 +29,64 @@ body {
     line-height: 30px;
     color: rgb(0, 0, 0);
     transition: width 0.5s ease;
+}
+
+.navbar {
+    background-color: #840fc3;
+    color: white;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.navbar-brand {
+    font-size: 25px;
+    font-weight: bold;
+}
+
+.navbar-menu {
+    display: flex;
+}
+
+.navbar-item {
+    background-color: #4CAF50;
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: transform 0.8s;
+}
+
+.navbar-item:hover{
+    transform: scale(1.05);
+    background-color:#4CAF50;
+}
+#ReturnLoginBtn {
+    background-color: #f44336;
+}
+
+.return-index{
+        background-color: #4CAF50;
+        border: none;
+        color: white;
+        padding: 10px 20px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 4px 2px;
+        cursor: pointer;
+        border-radius: 4px;
+        transition: transform 0.8s;
+}
+.return-index:hover{
+        transform: scale(1.05);
+        background-color:#3b6e40;
 }
