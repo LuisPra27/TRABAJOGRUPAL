@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', function() {
     function loadprojects() {
         const projects = JSON.parse(localStorage.getItem('projects') || '[]');
         projects.forEach(projectData => {
-            createproject(projectData.title, projectData.content, projectData.id, projectData.objectives || []);  // Asegurar que los objetivos se carguen
+            createproject(projectData.title, projectData.content, projectData.id, projectData.objectives || []);
         });
     }
 
@@ -27,6 +27,9 @@ document.addEventListener('DOMContentLoaded', function() {
             <p>${id}</p>
             <button class="delete-btn">Eliminar</button>
         `;
+
+        // Verificar y aplicar el color según el progreso
+        updateProjectColor(project, id);
     
         const deleteBtn = project.querySelector('.delete-btn');
         deleteBtn.addEventListener('click', function(e) {
@@ -39,8 +42,25 @@ document.addEventListener('DOMContentLoaded', function() {
         container.appendChild(project);
         saveprojects();
     }
-    
 
+    function updateProjectColor(projectElement, projectId) {
+        const projectCheckboxKey = `project_${projectId}_checkboxes`;
+        const savedStates = JSON.parse(localStorage.getItem(projectCheckboxKey) || '[]');
+        
+        if (savedStates.length > 0) {
+            const checkedCount = savedStates.filter(state => state).length;
+            const progress = (checkedCount / savedStates.length) * 100;
+            
+            if (progress === 100) {
+                projectElement.style.backgroundColor = '#2cdc15';
+                projectElement.style.borderColor = 'purple'; // Sea green border
+            } else {
+                projectElement.style.backgroundColor = '';
+                projectElement.style.borderColor = '';
+            }
+        }
+    }
+    
     function deleteProject(id) {
         const projectElement = container.querySelector(`[data-id="${id}"]`);
         if (projectElement) {
@@ -66,8 +86,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         
         if (title && content) {
-            // Llamar a createproject con el título, contenido, y objetivos correctamente
-            createproject(title, content, null, objectives);  // 'null' para el id, ya que será generado automáticamente
+            createproject(title, content, null, objectives);
         }
     }
     
@@ -76,16 +95,33 @@ document.addEventListener('DOMContentLoaded', function() {
             id: project.dataset.id,
             title: project.querySelector('h3').textContent,
             content: project.querySelector('p').textContent,
-            objectives: project.objectives || []  // Almacenar correctamente los objetivos
+            objectives: project.objectives || []
         }));
         localStorage.setItem('projects', JSON.stringify(projects));
         localStorage.setItem('projectCount', projectCount.toString());
     }
-    
+
+    // Función para actualizar todos los proyectos
+    function updateAllProjectsColors() {
+        const projects = container.querySelectorAll('.grid-item');
+        projects.forEach(project => {
+            updateProjectColor(project, project.dataset.id);
+        });
+    }
+
+    // Agregar un evento de storage para detectar cambios en localStorage
+    window.addEventListener('storage', function(e) {
+        if (e.key && e.key.includes('_checkboxes')) {
+            updateAllProjectsColors();
+        }
+    });
 
     addProjectdBtn.addEventListener('click', addNewproject);
 
     // Cargar las tarjetas existentes al iniciar
     loadprojects();
+    
+    // Actualizar colores iniciales
+    updateAllProjectsColors();
 });
 
