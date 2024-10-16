@@ -61,3 +61,24 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 });
+
+//Usuarios
+function getUsers() {
+    let users = localStorage.getItem('users');
+    return users ? JSON.parse(users) : [];
+}
+
+// Mostrar la lista de usuarios
+function displayUsers() {
+    const userList = document.getElementById('userList');
+    userList.innerHTML = '';
+    const users = getUsers();
+
+    users.forEach((user, index) => {
+        const li = document.createElement('li');
+        li.textContent = `${user.username}`;
+        userList.appendChild(li);
+    });
+}
+// Mostrar usuarios al cargar la página
+document.addEventListener('DOMContentLoaded', displayUsers);
