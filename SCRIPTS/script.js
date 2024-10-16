@@ -2,19 +2,20 @@ document.addEventListener('DOMContentLoaded', function() {
     const container = document.getElementById('grid-container');
     const addProjectdBtn = document.getElementById('addProjectdBtn');
     let projectCount = parseInt(localStorage.getItem('projectCount') || '0');
-
+    
+    //Funcion para Cargar los Proyectos
     function loadprojects() {
         const projects = JSON.parse(localStorage.getItem('projects') || '[]');
         projects.forEach(projectData => {
             createproject(projectData.title, projectData.content, projectData.id, projectData.objectives || []);
         });
     }
-
+    //Funcion para leer y mostrar un trozo del texto
     function truncateText(text, maxLength = 100) {
         if (text.length <= maxLength) return text;
         return text.substr(0, maxLength).trim() + '...';
     }
-
+    //Funcion para crear el Proyecto
     function createproject(title, content, id = null, objectives = []) { 
         if (!id) {
             projectCount++;
@@ -52,7 +53,7 @@ document.addEventListener('DOMContentLoaded', function() {
         container.appendChild(project);
         saveprojects();
     }
-
+    //Funcion para al completar la barra del progreso, el contenedor cambie a color verde
     function updateProjectColor(projectElement, projectId) {
         const projectCheckboxKey = `project_${projectId}_checkboxes`;
         const savedStates = JSON.parse(localStorage.getItem(projectCheckboxKey) || '[]');
@@ -70,7 +71,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }
     }
-    
+    //Funcion para el boton eliminar proyecto  
     function deleteProject(id) {
         const projectElement = container.querySelector(`[data-id="${id}"]`);
         if (projectElement) {
@@ -78,7 +79,7 @@ document.addEventListener('DOMContentLoaded', function() {
             saveprojects();
         }
     }
-
+    //Funcion para el boton añadir nuevo Proyecto
     function addNewproject() {
         const title = prompt('Ingrese el título para el nuevo Proyecto:', `Proyecto ${projectCount + 1}`);
         const content = prompt('Ingrese una breve descripción para el nuevo Proyecto:', 'Breve descripción');
@@ -99,7 +100,7 @@ document.addEventListener('DOMContentLoaded', function() {
             createproject(title, content, null, objectives);
         }
     }
-    
+    //Funcion para que el proyecto se guarde
     function saveprojects() {
         const projects = Array.from(container.children).map(project => ({
             id: project.dataset.id,
@@ -112,20 +113,8 @@ document.addEventListener('DOMContentLoaded', function() {
         localStorage.setItem('projectCount', projectCount.toString());
     }
 
-    function updateAllProjectsColors() {
-        const projects = container.querySelectorAll('.grid-item');
-        projects.forEach(project => {
-            updateProjectColor(project, project.dataset.id);
-        });
-    }
-
-    window.addEventListener('storage', function(e) {
-        if (e.key && e.key.includes('_checkboxes')) {
-            updateAllProjectsColors();
-        }
-    });
-
+    //Boton al añadir proyecto
     addProjectdBtn.addEventListener('click', addNewproject);
+    //Cargar los proyectos
     loadprojects();
-    updateAllProjectsColors();
 });

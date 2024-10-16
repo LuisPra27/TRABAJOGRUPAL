@@ -62,13 +62,13 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
-//Usuarios
+//Funcion para que me muestre todos los usuarios
 function getUsers() {
     let users = localStorage.getItem('users');
     return users ? JSON.parse(users) : [];
 }
 
-// Mostrar la lista de usuarios
+// Funcion que me muestre la lista de usuarios
 function displayUsers() {
     const userList = document.getElementById('userList');
     userList.innerHTML = '';

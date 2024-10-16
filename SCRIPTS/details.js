@@ -67,7 +67,7 @@ document.addEventListener('DOMContentLoaded', function() {
         detailsContainer.innerHTML = '<p>No se especificó un proyecto válido.</p>';
     }
 });
-
+//Funcion para guardar los cambios dentro del Proyecto
 function saveProjectChanges(projectID, newTitle, newContent) {
     const projects = JSON.parse(localStorage.getItem('projects') || '[]');
     const projectIndex = projects.findIndex(project => project.id === projectID);
@@ -79,17 +79,7 @@ function saveProjectChanges(projectID, newTitle, newContent) {
     }
 }
 
-function updateProgress() {
-    const totalOptions = document.querySelectorAll('.option').length;
-    const selectedOptions = document.querySelectorAll('.option:checked').length;
-    
-    const progressPercentage = (selectedOptions / totalOptions) * 100;
-    const progressBar = document.getElementById('progressBar');
-    
-    progressBar.style.width = progressPercentage + '%';
-    progressBar.textContent = Math.round(progressPercentage) + '%';
-}
-
+//Funcion para que las cajas check se guarden al entrar a un proyecto
 function saveCheckboxState(projectID) {
     const checkboxes = document.querySelectorAll('.option');
     const checkboxStates = Array.from(checkboxes).map(checkbox => checkbox.checked);
@@ -98,7 +88,7 @@ function saveCheckboxState(projectID) {
     const projectCheckboxKey = `project_${projectID}_checkboxes`;
     localStorage.setItem(projectCheckboxKey, JSON.stringify(checkboxStates));
 }
-
+//Funcion para que las cajas check carguen al entrar a un proyecto
 function restoreCheckboxState(projectID) {
     const projectCheckboxKey = `project_${projectID}_checkboxes`;
     const savedStates = JSON.parse(localStorage.getItem(projectCheckboxKey) || '[]');
@@ -109,6 +99,7 @@ function restoreCheckboxState(projectID) {
     });
 }
 
+//Funcion para actualizar la barra del Progreso
 function updateProgress() {
     const totalOptions = document.querySelectorAll('.option').length;
     const selectedOptions = document.querySelectorAll('.option:checked').length;
