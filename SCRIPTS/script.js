@@ -10,6 +10,11 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
+    function truncateText(text, maxLength = 100) {
+        if (text.length <= maxLength) return text;
+        return text.substr(0, maxLength).trim() + '...';
+    }
+
     function createproject(title, content, id = null, objectives = []) { 
         if (!id) {
             projectCount++;
@@ -21,14 +26,19 @@ document.addEventListener('DOMContentLoaded', function() {
         project.href = `details.html?id=${id}&title=${encodeURIComponent(title)}`;
         project.dataset.id = id;
         project.objectives = objectives;
+        
+        // Guardar el contenido completo como un atributo de datos
+        project.dataset.fullContent = content;
+        
         project.innerHTML = `
-            <h3>${title}</h3>
-            <p>${content}</p>
-            <p>${id}</p>
+            <h3 class="project-title">${title}</h3>
+            <div class="project-content">
+                <p class="truncate-text">${truncateText(content)}</p>
+            </div>
+            <p class="project-id">${id}</p>
             <button class="delete-btn">Eliminar</button>
         `;
 
-        // Verificar y aplicar el color según el progreso
         updateProjectColor(project, id);
     
         const deleteBtn = project.querySelector('.delete-btn');
@@ -52,8 +62,8 @@ document.addEventListener('DOMContentLoaded', function() {
             const progress = (checkedCount / savedStates.length) * 100;
             
             if (progress === 100) {
-                projectElement.style.backgroundColor = '#2cdc15';
-                projectElement.style.borderColor = 'purple'; // Sea green border
+                projectElement.style.backgroundColor = '#4CAF50';
+                projectElement.style.borderColor = 'black';
             } else {
                 projectElement.style.backgroundColor = '';
                 projectElement.style.borderColor = '';
@@ -94,14 +104,14 @@ document.addEventListener('DOMContentLoaded', function() {
         const projects = Array.from(container.children).map(project => ({
             id: project.dataset.id,
             title: project.querySelector('h3').textContent,
-            content: project.querySelector('p').textContent,
+            // Usar el contenido completo guardado en dataset
+            content: project.dataset.fullContent,
             objectives: project.objectives || []
         }));
         localStorage.setItem('projects', JSON.stringify(projects));
         localStorage.setItem('projectCount', projectCount.toString());
     }
 
-    // Función para actualizar todos los proyectos
     function updateAllProjectsColors() {
         const projects = container.querySelectorAll('.grid-item');
         projects.forEach(project => {
@@ -109,7 +119,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Agregar un evento de storage para detectar cambios en localStorage
     window.addEventListener('storage', function(e) {
         if (e.key && e.key.includes('_checkboxes')) {
             updateAllProjectsColors();
@@ -117,11 +126,6 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     addProjectdBtn.addEventListener('click', addNewproject);
-
-    // Cargar las tarjetas existentes al iniciar
     loadprojects();
-    
-    // Actualizar colores iniciales
     updateAllProjectsColors();
 });
-

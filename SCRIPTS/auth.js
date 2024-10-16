@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 } else {
                     localStorage.removeItem('rememberedUser');
                 }
-                alert('Inicio de sesión exitoso');
+
 
                 window.location.href = '../HTMLS/index.html';
             } else {

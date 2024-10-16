@@ -34,12 +34,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             });
 
-            editableContent.addEventListener('keypress', function(e) {
-                if (e.key === 'Enter') {
-                    e.preventDefault();
-                    this.blur();
-                }
-            });
 
             if (projectData.objectives && projectData.objectives.length > 0) {
                 projectData.objectives.forEach((objective, index) => {
