@@ -1,14 +1,13 @@
 body {
     font-family: Arial, sans-serif;
-    background-color: #f0f0f0;
+    background-color:rgba(183, 217, 221, 0.444);
 }
 
 #project-details{
-    border: 5px solid #000000;
-    border-radius: 8px;
-    background-color:rgba(183, 217, 221, 0.749);
     font-size: 30px;
 }
+
+
 
 .progress-bar {
     width: 100%;
