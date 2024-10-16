@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function loadprojects() {
         const projects = JSON.parse(localStorage.getItem('projects') || '[]');
-        projects.forEach(projectData => createproject(projectData.title, projectData.id, projectData.content));
+        projects.forEach(projectData => createproject(projectData.title, projectData.content, projectData.id));
     }
 
     function createproject(title, content, id = null, objectives = []) { 
@@ -20,8 +20,8 @@ document.addEventListener('DOMContentLoaded', function() {
         project.dataset.id = id;
         project.innerHTML = `
             <h3>${title}</h3>
-            <p>${id}</p>
             <p>${content}</p>
+            <p>${id}</p>
             <button class="delete-btn">Eliminar</button>
         `;
     
