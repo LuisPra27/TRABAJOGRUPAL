@@ -5,8 +5,8 @@ document.addEventListener('DOMContentLoaded', function() {
     const projectTitle = urlParams.get('title');
 
     if (projectID && projectTitle) {
-        const project = JSON.parse(localStorage.getItem('projects') || '[]');
-        const projectData = project.find(project => project.id === projectID);
+        const projects = JSON.parse(localStorage.getItem('projects') || '[]');
+        const projectData = projects.find(project => project.id === projectID);
         
         if (projectData) {
             detailsContainer.innerHTML = `
@@ -18,6 +18,16 @@ document.addEventListener('DOMContentLoaded', function() {
             detailsContainer.innerHTML = '<p>No se encontraron detalles para este proyecto.</p>';
         }
     } else {
-        detailsContainer.innerHTML = '<p>No se especificó un proyecto valido.</p>';
+        detailsContainer.innerHTML = '<p>No se especificó un proyecto válido.</p>';
     }
 });
+
+function updateProgress() {
+    const totalOptions = document.querySelectorAll('.option').length;
+    const selectedOptions = document.querySelectorAll('.option:checked').length;
+    const progressPercentage = (selectedOptions / totalOptions) * 100;
+
+    const progressBar = document.getElementById('progressBar');
+    progressBar.style.width = progressPercentage + '%';
+    progressBar.textContent = Math.round(progressPercentage) + '%';
+}

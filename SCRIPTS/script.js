@@ -18,59 +18,55 @@ document.addEventListener('DOMContentLoaded', function() {
         projects.forEach(projectData => createproject(projectData.title, projectData.content, projectData.id));
     }
 
-    function createproject(title, content, id = null) {
-        if (!id) {
-            projectCount++;
-            id = `project-${projectCount}`;
+
+function createproject(title, content, id= null) {
+    if (!id) {
+        projectCount++;
+        id = `Proyecto-${projectCount}`;
+    }
+
+    const project = document.createElement('a');
+    project.className = 'grid-item';
+    project.href = `details.html?id=${id}&title=${encodeURIComponent(title)}`;
+    project.dataset.id = id;
+    project.innerHTML = `
+        <h3>${title}</h3>
+        <p>${id}</p>
+        <span>Click para más detalles</span>
+        <button class="delete-btn">Eliminar</button>
+    `;
+
+    const deleteBtn = project.querySelector('.delete-btn');
+    deleteBtn.addEventListener('click', function(e) {
+        e.preventDefault();
+        if (confirm('¿Estás seguro de que quieres eliminar este proyecto?')) {
+            deleteProject(id);
         }
+    });
 
-        const project = document.createElement('a');
-        project.className = 'grid-item';
-        project.href = `details.html?id=${id}&title=${encodeURIComponent(title)}`;
-        project.dataset.id = id;
-        project.innerHTML = `
-            <h3>${title}</h3>
-            <p>${content}</p>
-            <span>Click para más detalles</span>
-        `;
-        /**
-            const project = document.createElement('button');
-            project.textContent = 'Eliminar';
-            project.onclick = () => eliminarProyecto(index);
-            const EditarBtn = document.createElement('button');
-            EditarBtn.textContent = 'Editar';
-            EditarBtn.onclick = () => editarProyecto(index);
-            li.appendChild(project);
-            li.appendChild(EditarBtn);
-        });
-    };
+    container.appendChild(project);
+    saveprojects();
+}
 
-
-
-
-
-
-
-
-
-         */
-
-
-        container.appendChild(project);
+function deleteProject(id) {
+    const projectElement = container.querySelector(`[data-id="${id}"]`);
+    if (projectElement) {
+        container.removeChild(projectElement);
         saveprojects();
     }
+}
 
-    function addNewproject() {
-        const title = prompt('Ingrese el título para el nuevo Proyecto:', `Proyecto ${projectCount + 1}`);
-        const content = prompt('Ingrese una breve descripción para el nueva Proyecto:', 'Breve descripción');
-        if (title && content) {
-            createproject(title, content);
-        }
+function addNewproject() {
+    const title = prompt('Ingrese el título para el nuevo Proyecto:', `Proyecto ${projectCount + 1}`);
+    const content = prompt('Ingrese una breve descripción para el nueva Proyecto:', 'Breve descripción');
+    if (title && content) {
+        createproject(title, content);
     }
+}
 
-    addProjectdBtn.addEventListener('click', addNewproject);
+addProjectdBtn.addEventListener('click', addNewproject);
 
-    // Cargar las tarjetas existentes al iniciar
-    loadprojects();
+// Cargar las tarjetas existentes al iniciar
+loadprojects();
 });
 
