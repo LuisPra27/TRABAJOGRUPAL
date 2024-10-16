@@ -5,9 +5,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function loadprojects() {
         const projects = JSON.parse(localStorage.getItem('projects') || '[]');
-        projects.forEach(projectData => {
-            createproject(projectData.title, projectData.content, projectData.id, projectData.objectives || []);  // Asegurar que los objetivos se carguen
-        });
+        projects.forEach(projectData => createproject(projectData.title, projectData.content, projectData.id));
     }
 
     function createproject(title, content, id = null, objectives = []) { 
@@ -20,7 +18,6 @@ document.addEventListener('DOMContentLoaded', function() {
         project.className = 'grid-item';
         project.href = `details.html?id=${id}&title=${encodeURIComponent(title)}`;
         project.dataset.id = id;
-        project.objectives = objectives;
         project.innerHTML = `
             <h3>${title}</h3>
             <p>${content}</p>
@@ -71,12 +68,14 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
     
+    
+    
     function saveprojects() {
         const projects = Array.from(container.children).map(project => ({
             id: project.dataset.id,
             title: project.querySelector('h3').textContent,
             content: project.querySelector('p').textContent,
-            objectives: project.objectives || []  // Almacenar correctamente los objetivos
+            objectives: project.objectives || []  // Agrega los objetivos a los proyectos
         }));
         localStorage.setItem('projects', JSON.stringify(projects));
         localStorage.setItem('projectCount', projectCount.toString());
