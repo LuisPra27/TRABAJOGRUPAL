@@ -1,13 +1,14 @@
-*{
+* {
     margin: 0;
     padding: 0;
 }
+
 body {
-    font-family:'Calibri';
-    background-color:rgba(183, 217, 221, 0.444);
+    font-family: 'Calibri';
+    background-color: rgba(183, 217, 221, 0.444);
 }
 
-#project-details{
+#project-details {
     font-size: 30px;
     padding: 10px;
 }
@@ -62,29 +63,128 @@ body {
     transition: transform 0.8s;
 }
 
-.navbar-item:hover{
+.navbar-item:hover {
     transform: scale(1.05);
-    background-color:#4CAF50;
+    background-color: #4CAF50;
 }
+
 #ReturnLoginBtn {
     background-color: #f44336;
 }
 
-.return-index{
-        background-color: #4CAF50;
-        border: none;
-        color: white;
-        padding: 10px 20px;
-        text-align: center;
-        text-decoration: none;
-        display: inline-block;
-        font-size: 16px;
-        margin: 4px 2px;
-        cursor: pointer;
-        border-radius: 4px;
-        transition: transform 0.8s;
+.return-index {
+    background-color: #4CAF50;
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: transform 0.8s;
 }
-.return-index:hover{
-        transform: scale(1.05);
-        background-color:#3b6e40;
+
+.return-index:hover {
+    transform: scale(1.05);
+    background-color: #3b6e40;
+}
+
+/* Estilos para el sistema de objetivos */
+.objective-form {
+    margin: 20px;
+    display: flex;
+    gap: 10px;
+}
+
+#newObjective {
+    flex: 1;
+    padding: 10px;
+    border: 2px solid #840fc3;
+    border-radius: 4px;
+    font-size: 16px;
+    font-family: 'Calibri';
+}
+
+#addObjectiveBtn {
+    background-color: #840fc3;
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: transform 0.8s;
+}
+
+#addObjectiveBtn:hover {
+    transform: scale(1.05);
+    background-color: #6a0c9d;
+}
+
+#objectives-list {
+    list-style: none;
+    padding: 20px;
+}
+
+#objectives-list li {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px;
+    margin-bottom: 10px;
+    background-color: white;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+}
+
+#objectives-list li:hover {
+    transform: translateX(5px);
+}
+
+.delete-objective {
+    background-color: #f44336;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 18px;
+    transition: transform 0.3s ease;
+}
+
+.delete-objective:hover {
+    transform: scale(1.1);
+    background-color: #d32f2f;
+}
+
+.option {
+    margin-right: 10px;
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+}
+
+/* Estilo para el texto del objetivo */
+#objectives-list li label {
+    font-size: 16px;
+    color: #333;
+    flex: 1;
+    display: flex;
+    align-items: center;
+}
+
+/* Estilo para objetivos completados */
+.option:checked + span {
+    text-decoration: line-through;
+    color: #888;
 }
