@@ -2,12 +2,13 @@ document.addEventListener('DOMContentLoaded', function() {
     const container = document.getElementById('grid-container');
     const addProjectdBtn = document.getElementById('addProjectdBtn');
     let projectCount = parseInt(localStorage.getItem('projectCount') || '0');
-    
+    const currentUser = JSON.parse(sessionStorage.getItem('currentUser')); // Obtener usuario actual
+
     //Funcion para Cargar los Proyectos
     function loadprojects() {
         const projects = JSON.parse(localStorage.getItem('projects') || '[]');
         projects.forEach(projectData => {
-            createproject(projectData.title, projectData.content, projectData.id, projectData.objectives || []);
+            createproject(projectData.title, projectData.content, projectData.id, projectData.objectives || [], projectData.creator);
         });
     }
     //Funcion para leer y mostrar un trozo del texto
@@ -15,8 +16,8 @@ document.addEventListener('DOMContentLoaded', function() {
         if (text.length <= maxLength) return text;
         return text.substr(0, maxLength).trim() + '...';
     }
-    //Funcion para crear el Proyecto
-    function createproject(title, content, id = null, objectives = []) { 
+    // Función para crear el proyecto
+    function createproject(title, content, id = null, objectives = [], creator = 'Desconocido') { 
         if (!id) {
             projectCount++;
             id = `Proyecto-${projectCount}`;
@@ -36,7 +37,8 @@ document.addEventListener('DOMContentLoaded', function() {
             <div class="project-content">
                 <p class="truncate-text">${truncateText(content)}</p>
             </div>
-            <p class="project-id">${id}</p>
+            <p class="project-id">ID: ${id}</p>
+            <p class="project-creator">Creado por: ${creator}</p> <!-- Mostrar creador -->
             <button class="delete-btn">Eliminar</button>
         `;
 
@@ -97,24 +99,23 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         
         if (title && content) {
-            createproject(title, content, null, objectives);
+            createproject(title, content, null, objectives, currentUser.username); // Guardar el usuario actual como creador
         }
     }
-    //Funcion para que el proyecto se guarde
-    function saveprojects() {
+     // Función para guardar los proyectos
+     function saveprojects() {
         const projects = Array.from(container.children).map(project => ({
             id: project.dataset.id,
             title: project.querySelector('h3').textContent,
-            // Usar el contenido completo guardado en dataset
             content: project.dataset.fullContent,
-            objectives: project.objectives || []
+            objectives: project.objectives || [],
+            creator: project.querySelector('.project-creator').textContent.replace('Creado por: ', '') // Guardar creador
         }));
         localStorage.setItem('projects', JSON.stringify(projects));
         localStorage.setItem('projectCount', projectCount.toString());
     }
-
-    //Boton al añadir proyecto
+    // Botón para añadir proyecto
     addProjectdBtn.addEventListener('click', addNewproject);
-    //Cargar los proyectos
+    // Cargar los proyectos
     loadprojects();
 });

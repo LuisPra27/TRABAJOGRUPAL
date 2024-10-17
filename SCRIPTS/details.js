@@ -1,10 +1,8 @@
 document.addEventListener('DOMContentLoaded', function() {
     const detailsContainer = document.getElementById('project-details');
     const objectivesList = document.getElementById('objectives-list');
-    const progressBar = document.getElementById('progressBar');
     const urlParams = new URLSearchParams(window.location.search);
     const projectID = urlParams.get('id');
-    const projectTitle = urlParams.get('title');
 
     if (projectID) {
         const projects = JSON.parse(localStorage.getItem('projects') || '[]');
@@ -78,7 +76,6 @@ function saveProjectChanges(projectID, newTitle, newContent) {
         localStorage.setItem('projects', JSON.stringify(projects));
     }
 }
-
 //Funcion para que las cajas check se guarden al entrar a un proyecto
 function saveCheckboxState(projectID) {
     const checkboxes = document.querySelectorAll('.option');
@@ -98,7 +95,6 @@ function restoreCheckboxState(projectID) {
         checkbox.checked = savedStates[index] || false;
     });
 }
-
 //Funcion para actualizar la barra del Progreso
 function updateProgress() {
     const totalOptions = document.querySelectorAll('.option').length;
