@@ -4,25 +4,33 @@ document.addEventListener('DOMContentLoaded', function() {
     let projectCount = parseInt(localStorage.getItem('projectCount') || '0');
     const currentUser = JSON.parse(sessionStorage.getItem('currentUser')); // Obtener usuario actual
 
-    //Funcion para Cargar los Proyectos
-    function loadprojects() {
+    //Función para cargar los proyectos
+    function loadProjects() {
         const projects = JSON.parse(localStorage.getItem('projects') || '[]');
         projects.forEach(projectData => {
-            createproject(projectData.title, projectData.content, projectData.id, projectData.objectives || [], projectData.creator);
+            createProject(
+                projectData.title, 
+                projectData.content, 
+                projectData.id, 
+                projectData.objectives || [], 
+                projectData.creator
+            );
         });
     }
-    //Funcion para leer y mostrar un trozo del texto
+
+    //Función para leer y mostrar un trozo del texto
     function truncateText(text, maxLength = 100) {
         if (text.length <= maxLength) return text;
         return text.substr(0, maxLength).trim() + '...';
     }
-    // Función para crear el proyecto
-    function createproject(title, content, id = null, objectives = [], creator = 'Desconocido') { 
+
+    // Función para crear un nuevo proyecto
+    function createProject(title, content, id = null, objectives = [], creator = 'Desconocido') { 
         if (!id) {
             projectCount++;
             id = `Proyecto-${projectCount}`;
         }
-    
+
         const project = document.createElement('a');
         project.className = 'grid-item';
         project.href = `details.html?id=${id}&title=${encodeURIComponent(title)}`;
@@ -43,7 +51,7 @@ document.addEventListener('DOMContentLoaded', function() {
         `;
 
         updateProjectColor(project, id);
-    
+
         const deleteBtn = project.querySelector('.delete-btn');
         deleteBtn.addEventListener('click', function(e) {
             e.preventDefault();
@@ -51,11 +59,12 @@ document.addEventListener('DOMContentLoaded', function() {
                 deleteProject(id);
             }
         });
-    
+
         container.appendChild(project);
-        saveprojects();
+        saveProjects();
     }
-    //Funcion para al completar la barra del progreso, el contenedor cambie a color verde
+
+    //Función para cambiar el color del contenedor según el progreso
     function updateProjectColor(projectElement, projectId) {
         const projectCheckboxKey = `project_${projectId}_checkboxes`;
         const savedStates = JSON.parse(localStorage.getItem(projectCheckboxKey) || '[]');
@@ -73,16 +82,18 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }
     }
-    //Funcion para el boton eliminar proyecto  
+
+    //Función para eliminar un proyecto
     function deleteProject(id) {
         const projectElement = container.querySelector(`[data-id="${id}"]`);
         if (projectElement) {
             container.removeChild(projectElement);
-            saveprojects();
+            saveProjects();
         }
     }
-    //Funcion para el boton añadir nuevo Proyecto
-    function addNewproject() {
+
+    //Función para añadir un nuevo proyecto
+    function addNewProject() {
         const title = prompt('Ingrese el título para el nuevo Proyecto:', `Proyecto ${projectCount + 1}`);
         const content = prompt('Ingrese una breve descripción para el nuevo Proyecto:', 'Breve descripción');
         
@@ -99,11 +110,12 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         
         if (title && content) {
-            createproject(title, content, null, objectives, currentUser.username); // Guardar el usuario actual como creador
+            createProject(title, content, null, objectives, currentUser.username); // Guardar el usuario actual como creador
         }
     }
-     // Función para guardar los proyectos
-     function saveprojects() {
+
+    //Función para guardar los proyectos en localStorage
+    function saveProjects() {
         const projects = Array.from(container.children).map(project => ({
             id: project.dataset.id,
             title: project.querySelector('h3').textContent,
@@ -114,8 +126,10 @@ document.addEventListener('DOMContentLoaded', function() {
         localStorage.setItem('projects', JSON.stringify(projects));
         localStorage.setItem('projectCount', projectCount.toString());
     }
-    // Botón para añadir proyecto
-    addProjectdBtn.addEventListener('click', addNewproject);
-    // Cargar los proyectos
-    loadprojects();
+
+    // Botón para añadir nuevo proyecto
+    addProjectdBtn.addEventListener('click', addNewProject);
+
+    // Cargar los proyectos al inicio
+    loadProjects();
 });
